@@ -45,6 +45,7 @@ public class ProdutoDAOImpl implements ProdutoDAO{
     @Override
     public Produto update(Long id, Produto produto) {
         produto.setId(id);
-        return db.put(id, produto);
+        db.put(id, produto);
+        return db.get(id);
     }
 }

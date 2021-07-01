@@ -1,7 +1,9 @@
 package com.mercadolivre.crudproduto.controllers;
 
 import com.mercadolivre.crudproduto.models.Produto;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -9,22 +11,18 @@ import java.util.List;
 public interface ProdutoController {
 
     @PostMapping
-    @ResponseBody
-    Produto criar(@RequestBody Produto produto);
+    ResponseEntity<?> criar(@RequestBody Produto produto, UriComponentsBuilder uriComponentsBuilder);
 
     @GetMapping(path = "/{id}")
-    @ResponseBody
-    Produto lerPeloId(@PathVariable Long id);
+    ResponseEntity<Produto> lerPeloId(@PathVariable Long id);
 
     @GetMapping
-    @ResponseBody
-    List<Produto> ler();
+    ResponseEntity<List<Produto>> ler();
 
     @DeleteMapping(path = "/{id}")
     void remover(@PathVariable Long id);
 
     @PutMapping(path = "/{id}")
-    @ResponseBody
-    Produto update(@PathVariable Long id, @RequestBody Produto produto);
+    ResponseEntity<Produto> update(@PathVariable Long id, @RequestBody Produto produto);
 
 }
