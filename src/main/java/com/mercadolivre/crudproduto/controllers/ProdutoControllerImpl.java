@@ -4,8 +4,11 @@ import com.mercadolivre.crudproduto.models.Produto;
 import com.mercadolivre.crudproduto.services.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -19,21 +22,20 @@ public class ProdutoControllerImpl implements ProdutoController{
     }
 
     @Override
-    @ResponseStatus(HttpStatus.CREATED)
-    public Produto criar(Produto produto) {
-        return produtoService.criar(produto);
+    public ResponseEntity<?> criar(Produto produto, UriComponentsBuilder uriComponentsBuilder) {
+        produto = produtoService.criar(produto);
+       UriComponents uriComponents = uriComponentsBuilder.path("/produtos/{id}").buildAndExpand(produto.getId());
+       return ResponseEntity.created(uriComponents.toUri()).build() ;
     }
 
     @Override
-    @ResponseStatus(HttpStatus.OK)
-    public Produto lerPeloId(Long id) {
-        return produtoService.lerPeloId(id);
+    public ResponseEntity<Produto> lerPeloId(Long id) {
+        return new ResponseEntity<>(produtoService.lerPeloId(id), HttpStatus.OK);
     }
 
     @Override
-    @ResponseStatus(HttpStatus.OK)
-    public List<Produto> ler() {
-        return produtoService.ler();
+    public ResponseEntity<List<Produto> >ler() {
+        return new ResponseEntity<>(produtoService.ler(), HttpStatus.OK) ;
     }
 
     @Override
@@ -43,8 +45,7 @@ public class ProdutoControllerImpl implements ProdutoController{
     }
 
     @Override
-    @ResponseStatus(HttpStatus.OK)
-    public Produto update(Long id, Produto produto) {
-        return produtoService.update(id, produto);
+    public ResponseEntity<Produto> update(Long id, Produto produto) {
+        return new ResponseEntity<>(produtoService.update(id, produto), HttpStatus.OK);
     }
 }
