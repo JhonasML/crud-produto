@@ -34,6 +34,7 @@ public class ProdutoControllerImpl implements ProdutoController {
     }
 
     @Override
+
     public ResponseEntity<List<Produto>> ler() {
         return new ResponseEntity<>(produtoService.ler(), HttpStatus.OK);
     }

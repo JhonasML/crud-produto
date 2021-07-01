@@ -1,19 +1,17 @@
 package com.mercadolivre.crudproduto.services;
 
 import com.mercadolivre.crudproduto.models.Produto;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 public interface ProdutoService {
-    Produto criar(@RequestBody Produto produto);
+    Produto criar(Produto produto);
 
-    Produto lerPeloId(@PathVariable Long id);
+    Produto lerPeloId(Long id);
 
     List<Produto> ler();
 
-    void remover(@PathVariable Long id);
+    void remover(Long id);
 
-    Produto update(@PathVariable Long id, @RequestBody Produto produto);
+    Produto update(Long id, Produto produto);
 }
